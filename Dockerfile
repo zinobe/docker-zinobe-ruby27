@@ -2,7 +2,11 @@ FROM ruby:2.7.1
 
 RUN apt-get update && \
     apt-get install -y \
-      wget
+      wget \
+      make \
+      gcc \
+      ruby-dev \
+      default-libmysqlclient-dev
 
 # Install AWS SSM
 RUN wget https://github.com/Droplr/aws-env/raw/v0.4/bin/aws-env-linux-amd64 -O /bin/aws-env && \
