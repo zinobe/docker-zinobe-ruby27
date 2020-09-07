@@ -25,5 +25,7 @@ WORKDIR /www
 
 RUN apt-get autoremove -y
 
+RUN ln -s /usr/local/bin/ruby /usr/bin/ruby2.7
+
 # Supervisor will run gunicorn or celery
 CMD ["supervisord", "-n", "-c", "|"]
