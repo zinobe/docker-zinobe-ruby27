@@ -1,19 +1,18 @@
-FROM ruby:latest
+FROM ruby:2.7.1
 
-RUN apt-get update && \
-    apt-get install -y \
+RUN apt update && \
+    apt install -y \
       wget \
       make \
       gcc \
       ruby-dev \
-      default-libmysqlclient-dev
+      default-libmysqlclient-dev \
+      cron \
+      supervisor
 
 # Install AWS SSM
 RUN wget https://github.com/Droplr/aws-env/raw/v0.4/bin/aws-env-linux-amd64 -O /bin/aws-env && \
   chmod +x /bin/aws-env
-
-# Install Supervisor
-RUN apt-get install -y supervisor
 
 COPY supervisord.conf /etc/supervisor/supervisord.conf
 
@@ -25,7 +24,4 @@ WORKDIR /www
 
 RUN apt-get autoremove -y
 
-RUN ln -s /usr/local/bin/ruby /usr/bin/ruby2.7
-
-# Supervisor will run gunicorn or celery
 CMD ["supervisord", "-n", "-c", "|"]
