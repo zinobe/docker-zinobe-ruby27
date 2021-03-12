@@ -1,4 +1,4 @@
-FROM ruby:latest
+FROM ruby:2.7
 
 RUN apt update && \
     apt install -y \
